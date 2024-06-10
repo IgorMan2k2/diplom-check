@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ESP8266 WebSocket Client</title>
+</head>
+<body>
+  <h1>Send Data to ESP8266 via WebSocket</h1>
+  <button onclick="sendData(1)">Send 1</button>
+  <button onclick="sendData(2)">Send 2</button>
+  <button onclick="sendData(3)">Send 3</button>
+  <button onclick="sendData(4)">Send 4</button>
+  <p id="status"></p>
+
+  <script>
+    var ws = new WebSocket('ws://' + window.location.hostname + '/ws');
+    ws.onopen = function(event) {
+      document.getElementById('status').innerText = 'WebSocket is connected.';
+    };
+    ws.onclose = function(event) {
+      document.getElementById('status').innerText = 'WebSocket is closed.';
+    };
+
+    function sendData(value) {
+      ws.send(value);
+      document.getElementById('status').innerText = 'Data sent: ' + value;
+    }
+  </script>
+</body>
+</html>
